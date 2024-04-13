@@ -2443,12 +2443,13 @@ const dotparser = d3dotparser1;
 
 var load = function(url, converter, callback) {
       if (arguments.length < 3) callback = converter, converter = simple;
-      var r = d3
-          .fecth(url)
-          .mimeType("text/vnd.graphviz")
-          .response(function(xhr) {
-            return converter(dotparser.parse(xhr.responseText)); });
-      return callback ? r.get(callback) : r;
+      fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        var r = converter(dotparser.parse(text));
+        return callback ? r.get(callback) : r;
+      });
+      
   };
 
   function simple(dotgraph) {

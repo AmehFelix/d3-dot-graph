@@ -2444,7 +2444,7 @@ const dotparser = d3dotparser1;
 var load = function(url, converter, callback) {
       if (arguments.length < 3) callback = converter, converter = simple;
       var r = d3
-          .request(url)
+          .fecth(url)
           .mimeType("text/vnd.graphviz")
           .response(function(xhr) {
             return converter(dotparser.parse(xhr.responseText)); });
